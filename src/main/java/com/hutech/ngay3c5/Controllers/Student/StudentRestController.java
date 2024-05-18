@@ -1,4 +1,4 @@
-package com.hutech.ngay3c5.Controllers;
+package com.hutech.ngay3c5.Controllers.Student;
 
 import com.hutech.ngay3c5.Entities.Student;
 import com.hutech.ngay3c5.RequestEntities.RequestCreateStudent;
@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/students")
-public class StudentController {
+public class StudentRestController {
     @Autowired
     private StudentService studentService;
 

@@ -1,10 +1,7 @@
 package com.hutech.ngay3c5.Entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -15,6 +12,7 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
