@@ -37,6 +37,17 @@
                     <input type="password" th:field="*{password}">
                 </td>
             </tr>
+            <tr>
+                <td>Classroom</td>
+                <td>
+                    <select th:field="*{classroom}">
+                        <option th:each="class : ${classes}"
+                                th:value="${class.class_id}"
+                                th:text="${class.name}">
+                        </option>
+                    </select>
+                </td>
+            </tr>
         </table>
         <input type="submit" value="Submithehe">
     </form>

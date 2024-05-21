@@ -1,5 +1,6 @@
 package com.hutech.ngay3c5.RequestEntities;
 
+import com.hutech.ngay3c5.Entities.Classroom;
 import jakarta.persistence.Column;
 import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
@@ -18,4 +19,5 @@ public class RequestCreateStudent {
     private String email;
     private String dateOfBirth;
     private String password;
+    private Classroom classroom;
 }

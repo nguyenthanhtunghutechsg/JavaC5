@@ -1,6 +1,8 @@
 package com.hutech.ngay3c5.Services;
 
+import com.hutech.ngay3c5.Entities.Classroom;
 import com.hutech.ngay3c5.Entities.Student;
+import com.hutech.ngay3c5.Repositories.ClassRepository;
 import com.hutech.ngay3c5.Repositories.StudentRepository;
 import com.hutech.ngay3c5.RequestEntities.RequestCreateStudent;
 import com.hutech.ngay3c5.RequestEntities.RequestUpdateStudent;
@@ -16,6 +18,8 @@ import java.util.List;
 public class StudentService {
     @Autowired
     private StudentRepository studentRepository;
+    @Autowired
+    private ClassServices classServices;
 
     public Student CreateStudent(RequestCreateStudent requestCreateStudent){
         try {
@@ -28,6 +32,7 @@ public class StudentService {
             Date date = dateFormat.parse(requestCreateStudent.getDateOfBirth());
             student.setDateOfBirth(date);
             student.setAge((new Date()).getYear()-date.getYear());
+            student.setClassroom(requestCreateStudent.getClassroom());
             studentRepository.save(student);
             return student;
         }catch (Exception e){
