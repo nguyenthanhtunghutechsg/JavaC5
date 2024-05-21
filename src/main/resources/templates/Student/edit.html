@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form action="#" th:action="'/students/saveedit'" th:object="${student}" method="post">
+        <table>
+            <tr>
+                <td>ID</td>
+                <td>
+                    <input type="text" readonly="readonly" th:field="*{id}">
+                </td>
+            </tr>
+            <tr>
+                <td>First Name</td>
+                <td>
+                    <input type="text" th:field="*{firstName}">
+                </td>
+            </tr>
+            <tr>
+                <td>Last Name</td>
+                <td>
+                    <input type="text" th:field="*{lastName}">
+                </td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>
+                    <input type="text" th:field="*{email}">
+                </td>
+            </tr>
+            <tr>
+                <td>Birth</td>
+                <td>
+                    <input type="date" th:field="*{dateOfBirth}">
+                </td>
+            </tr>
+            <tr>
+                <td>Password</td>
+                <td>
+                    <input type="password" th:field="*{password}">
+                </td>
+            </tr>
+        </table>
+        <input type="submit" value="Submithehe">
+    </form>
+</body>
+</html>

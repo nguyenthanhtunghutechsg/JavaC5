@@ -1,12 +1,13 @@
 package com.hutech.ngay3c5.Controllers.Student;
 
 import com.hutech.ngay3c5.Entities.Student;
+import com.hutech.ngay3c5.RequestEntities.RequestCreateStudent;
+import com.hutech.ngay3c5.RequestEntities.RequestUpdateStudent;
 import com.hutech.ngay3c5.Services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,5 +21,27 @@ public class StudentController {
         List<Student> students = studentService.getAllStudents();
         model.addAttribute("students", students);
         return "Student/index";
+    }
+    @GetMapping("/edit/{id}")
+    public String ShowStudentForm(@PathVariable String id, Model model){
+        Student student = studentService.getStudentById(id);
+        model.addAttribute("student", student);
+        return "Student/edit";
+    }
+    @PostMapping("/saveedit")
+    public String SaveEditStudent(RequestUpdateStudent requestUpdateStudent){
+        studentService.updateStudent(requestUpdateStudent.getId(),requestUpdateStudent);
+        return "redirect:/students";
+    }
+    @GetMapping("/new")
+    public String createForm(Model model){
+        Student student = new Student();
+        model.addAttribute("student", student);
+        return "Student/create";
+    }
+    @PostMapping("/create")
+    public String SaveCreateStudent(RequestCreateStudent requestCreateStudent){
+        studentService.CreateStudent(requestCreateStudent);
+        return "redirect:/students";
     }
 }

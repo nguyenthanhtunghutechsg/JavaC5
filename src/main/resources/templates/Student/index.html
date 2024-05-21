@@ -3,10 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
-   <table>
-       <thead>
+   <table class="table">
+       <thead class="thead-dark">
+       <th>
+           STT
+       </th>
        <th>
            ID
        </th>
@@ -14,20 +18,33 @@
            name
        </th>
        <th>
+           Birth
+       </th>
+       <th>
            email
        </th>
        <th>
-           ID
+           password
+       </th>
+       <th>
+           Action
        </th>
        </thead>
        <tbody>
        <tr th:each ="student : ${students}">
+           <td th:text=" ${studentStat.index+1}"></td>
            <td th:text=" ${student.id}"></td>
            <td th:text="|${student.lastName} ${student.firstName}|"></td>
            <td th:text=" ${student.dateOfBirth}"></td>
            <td th:text=" ${student.email}"></td>
+           <td th:text=" ${student.password}"></td>
+           <td>
+               <a th:href="'/students/edit/'+${student.id}">Edit</a>
+               <a th:href="'/students/delete/'+${student.id}">Delete</a>
+           </td>
        </tr>
        </tbody>
    </table>
+   <button onclick="location.href='/students/new'">Create</button>
 </body>
 </html>

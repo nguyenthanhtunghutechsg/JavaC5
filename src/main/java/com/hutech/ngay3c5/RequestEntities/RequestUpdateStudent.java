@@ -10,6 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RequestUpdateStudent {
+    private String id;
     private String firstName;
     private String lastName;
     private String dateOfBirth;

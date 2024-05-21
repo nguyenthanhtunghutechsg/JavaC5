@@ -24,7 +24,7 @@ public class StudentService {
             student.setLastName(requestCreateStudent.getLastName());
             student.setEmail(requestCreateStudent.getEmail());
             student.setPassword(requestCreateStudent.getPassword());
-            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             Date date = dateFormat.parse(requestCreateStudent.getDateOfBirth());
             student.setDateOfBirth(date);
             student.setAge((new Date()).getYear()-date.getYear());
@@ -48,7 +48,7 @@ public class StudentService {
             student.setFirstName(requestUpdateStudent.getFirstName());
             student.setLastName(requestUpdateStudent.getLastName());
             student.setPassword(requestUpdateStudent.getPassword());
-            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             Date date = dateFormat.parse(requestUpdateStudent.getDateOfBirth());
             student.setDateOfBirth(date);
             student.setAge((new Date()).getYear()-date.getYear());
@@ -57,4 +57,5 @@ public class StudentService {
             throw new RuntimeException(e.getMessage());
         }
     }
+
 }
