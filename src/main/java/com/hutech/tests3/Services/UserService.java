@@ -4,6 +4,7 @@ import com.hutech.tests3.Entities.Role;
 import com.hutech.tests3.Entities.User;
 import com.hutech.tests3.Repositories.RoleRepository;
 import com.hutech.tests3.Repositories.UserRepository;
+import com.hutech.tests3.RequestEntities.RegisterUser;
 import com.hutech.tests3.RequestEntities.RequestUser;
 import com.hutech.tests3.RequestEntities.RequestUserUpdate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,5 +63,13 @@ public class UserService {
         }catch (Exception e){
             throw  new RuntimeException(e.getMessage());
         }
+    }
+    public User userRegister(RegisterUser registerUser) {
+        User user = new User();
+        user.setUsername(registerUser.getUsername());
+        user.setPassword(new BCryptPasswordEncoder().encode(registerUser.getPassword()));
+        user.setEmail(registerUser.getEmail());
+        user.setRole(roleRepository.findOneByName("USER"));
+        return userRepository.save(user);
     }
 }

@@ -1,5 +1,6 @@
 package com.hutech.tests3.Services;
 
+import com.hutech.tests3.Entities.CustomUserDetail;
 import com.hutech.tests3.Entities.User;
 import com.hutech.tests3.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +20,9 @@ public class CustomUserDetailService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public CustomUserDetail loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username);
-        UserDetails userDetails = org.springframework.security.core.userdetails.User.builder().username(user.getUsername()).password(user.getPassword())
-                .authorities(BuildRolesFromRole(user.getRole().getRole_name())).build();
+        CustomUserDetail userDetails = new CustomUserDetail(user);
         System.out.println(userDetails.getAuthorities());
         return userDetails;
     }

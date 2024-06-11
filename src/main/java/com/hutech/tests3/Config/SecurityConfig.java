@@ -21,7 +21,6 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
     @Autowired
     private CustomUserDetailService customUserDetailService;
-
     @Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         return http.authorizeHttpRequests(
@@ -32,8 +31,9 @@ public class SecurityConfig {
                         .requestMatchers("/roles").hasAuthority("ADMIN,MODIFIER,USER")
                         .anyRequest().permitAll()
         ).formLogin(AbstractConfiguredSecurityBuilder
-                ->AbstractConfiguredSecurityBuilder.permitAll()
-        ).build();
+                ->AbstractConfiguredSecurityBuilder.loginPage("/login")
+                .permitAll()
+        ).logout(logout->logout.logoutUrl("/logout")).build();
     }
     @Bean
     public UserDetailsService userDetailsService() {
