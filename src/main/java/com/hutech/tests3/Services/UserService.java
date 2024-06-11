@@ -7,6 +7,7 @@ import com.hutech.tests3.Repositories.UserRepository;
 import com.hutech.tests3.RequestEntities.RequestUser;
 import com.hutech.tests3.RequestEntities.RequestUserUpdate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.text.DateFormat;
@@ -31,7 +32,7 @@ public class UserService {
         try {
             User user = new User();
             user.setUsername(requestUser.getUsername());
-            user.setPassword(requestUser.getPassword());
+            user.setPassword(new BCryptPasswordEncoder().encode(requestUser.getPassword()));
             user.setEmail(requestUser.getEmail());
             user.setFirstName(requestUser.getFirstName());
             user.setLastName(requestUser.getLastName());
