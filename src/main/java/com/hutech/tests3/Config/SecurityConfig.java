@@ -28,6 +28,11 @@ public class SecurityConfig {
     private CustomUserDetailService customUserDetailService;
 
     @Autowired
+    private HandleSuccessLogin handleSuccessLogin;
+    @Autowired
+    private HandleFailureLogin handleFailureLogin;
+
+    @Autowired
     private DataSource dataSource;
     @Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
@@ -35,12 +40,13 @@ public class SecurityConfig {
                 request->request
                         .requestMatchers("/").permitAll()
                         .requestMatchers("/users").hasAuthority("USER")
-                        .requestMatchers("/users/**").hasAuthority("MODIFIER,USER")
-                        .requestMatchers("/roles").hasAuthority("ADMIN,MODIFIER,USER")
+                        .requestMatchers("/users/**").hasAuthority("MODIFIER, USER")
+                        .requestMatchers("/roles").hasAuthority("ADMIN, MODIFIER, USER")
                         .anyRequest().permitAll()
         ).formLogin(AbstractConfiguredSecurityBuilder
-                ->AbstractConfiguredSecurityBuilder
-                .permitAll()
+                ->AbstractConfiguredSecurityBuilder.loginPage("/login")
+                .permitAll().successHandler(handleSuccessLogin).
+                        failureHandler(handleFailureLogin)
         ).rememberMe(remember
                         ->remember.tokenRepository(persistentTokenRepository())
                         .tokenValiditySeconds(1000*60*30))

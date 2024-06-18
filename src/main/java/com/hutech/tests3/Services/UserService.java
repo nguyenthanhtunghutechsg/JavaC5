@@ -82,4 +82,45 @@ public class UserService {
         user.setPassword(new BCryptPasswordEncoder().encode(newPassword));
         userRepository.save(user);
     }
+    public User getUserByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+    public void UpdateFailCount(User user){
+        int count = userRepository.countFailByUsername(user.getUsername());
+        if(user.getLockExpired().getTime()<System.currentTimeMillis()){
+            user.setEnabled(true);
+            user.setLockExpired(null);
+            user.setCountFail(0);
+        }
+        user.setCountFail(count+1);
+        if(count==3){
+            user.setEnabled(false);
+            user.setLockExpired(new Date(System.currentTimeMillis()+1000*60*15));
+        }
+        userRepository.save(user);
+    }
+    public void ResetLoginFail(User user){
+        user.setLockExpired(null);
+        user.setCountFail(0);
+        userRepository.save(user);
+    }
+    public User getUserByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+    public void GenTokenResetPassword(User user){
+        user.setTokenResetPassword(GenToken(45));
+        user.setTokenResetPasswordExpired(new Date(System.currentTimeMillis()+1000*60*10));
+        userRepository.save(user);
+    }
+    public String GenToken(int Length){
+        return "1111";
+    }
+    public User getUserByToken(String token){
+        return userRepository.findByToken(token);
+    }
+    public void ResetDateForgotPassword(User user){
+        user.setTokenResetPasswordExpired(null);
+        user.setTokenResetPassword(null);
+        userRepository.save(user);
+    }
 }

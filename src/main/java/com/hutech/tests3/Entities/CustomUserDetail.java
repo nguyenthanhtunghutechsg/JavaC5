@@ -46,4 +46,9 @@ public class CustomUserDetail implements UserDetails{
     public String getDisplayName(){
         return "HEHEHEHEHEHEHE";
     }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return user.isEnabled();
+    }
 }

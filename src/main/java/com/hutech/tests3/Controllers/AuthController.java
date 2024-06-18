@@ -56,4 +56,32 @@ public class AuthController {
             return "redirect:/change_password?error";
         }
     }
+    @GetMapping("forgotpassword")
+    public String ForgotPassword(){
+        return "Layout/Auth/forgotpassword";
+    }
+    @PostMapping("/forgotpassword")
+    public String ForgotPassword(@RequestParam("email") String email){
+        User user = userService.getUserByEmail(email);
+        if(user != null){
+            userService.GenTokenResetPassword(user);
+        }
+        return "redirect:/forgotpassword";
+    }
+    @GetMapping("/resetpassword")
+    public String ResetPassword(@RequestParam("token") String token,Model model){
+        User user = userService.getUserByToken(token);
+        if(user != null){
+            model.addAttribute("user", user);
+        }
+        return "Layout/Auth/reset_password";
+    }
+    @PostMapping("/resetpassword")
+    public String ResetPassword_Save(@RequestParam("username") String username,
+                                     @RequestParam("password") String password){
+        User user = userService.getUserByUsername(username);
+        userService.UpdatePassword(user,password);
+        userService.ResetDateForgotPassword(user);
+        return "redirect:/login";
+    }
 }
