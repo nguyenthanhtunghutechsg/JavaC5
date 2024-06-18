@@ -9,10 +9,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-@Getter
+
 public class CustomUserDetail implements UserDetails{
 
     private User user;
+    public User getUser(){
+        return user;
+    }
     public CustomUserDetail(User user) {
         this.user = user;
     }
