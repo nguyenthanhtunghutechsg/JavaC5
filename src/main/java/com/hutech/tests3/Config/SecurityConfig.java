@@ -19,6 +19,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
     @Autowired
     private CustomUserDetailService customUserDetailService;
     @Bean
@@ -31,9 +32,10 @@ public class SecurityConfig {
                         .requestMatchers("/roles").hasAuthority("ADMIN,MODIFIER,USER")
                         .anyRequest().permitAll()
         ).formLogin(AbstractConfiguredSecurityBuilder
-                ->AbstractConfiguredSecurityBuilder.loginPage("/login")
+                ->AbstractConfiguredSecurityBuilder
                 .permitAll()
-        ).logout(logout->logout.logoutUrl("/logout")).build();
+        )
+        .logout(logout->logout.logoutUrl("/logout")).build();
     }
     @Bean
     public UserDetailsService userDetailsService() {
