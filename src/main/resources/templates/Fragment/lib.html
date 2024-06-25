@@ -19,5 +19,24 @@
     </li>
   </ul>
 </nav>
+<div th:fragment="menubar(menus)">
+  <div>
+    <ul th:each="menu :${menus}">
+      <li th:if="${menu.parent==null}">
+        <a th:href="${menu.URL}" th:text="${menu.name}"></a>
+        <ul th:each="submenu :${menus}">
+          <li th:if="${submenu.parent==menu}">
+            <a th:href="${submenu.URL}" th:text="${submenu.name}"></a>
+            <ul th:each="grandmenu :${menus}">
+              <li th:if="${grandmenu.parent==submenu}">
+                <a th:href="${grandmenu.URL}" th:text="${grandmenu.name}"></a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
 </body>
 </html>

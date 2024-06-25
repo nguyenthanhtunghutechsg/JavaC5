@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="/products/search" method="get">
+    <div>
+        <input type="text" name="q">
+        <input type="submit" vale="search">
+    </div>
+</form>
+<table>
+    <thead>
+    <td>ID</td>
+    <td>name</td>
+    <td>description</td>
+    <td>price</td>
+    <td>gpu</td>
+    <td>cpu</td>
+    <td>ram</td>
+    <td>disk</td>
+    <td>brand</td>
+    <td>screen</td>
+    <td>category</td>
+    </thead>
+    <tr th:each="product:${products}">
+        <td th:text="${product.product_id}"></td>
+        <td th:text="${product.name}"></td>
+        <td th:text="${product.description}"></td>
+        <td th:text="${product.price}"></td>
+        <td th:text="${product.gpu}"></td>
+        <td th:text="${product.cpu}"></td>
+        <td th:text="${product.ram}"></td>
+        <td th:text="${product.disk}"></td>
+        <td th:text="${product.brand}"></td>
+        <td th:text="${product.screen}"></td>
+        <td th:text="${product.category.name}"></td>
+    </tr>
+</table>
+</body>
+</html>

@@ -35,4 +35,7 @@ public class ProductService {
 
         return productRepository.save(product);
     }
+    public List<Product> searchProduct(String keyword) {
+        return productRepository.search(keyword);
+    }
 }

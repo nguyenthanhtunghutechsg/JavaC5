@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -37,6 +38,17 @@ public class ProductController {
     public String saveProduct(Product product){
         productService.saveProduct(product);
         return "redirect:/products";
+    }
+    @GetMapping("/search")
+    public String searchProduct(@RequestParam(value = "q",required = false)String q, Model model){
+        List<Product> listProduct ;
+        if(q == ""||q==null){
+            listProduct = productService.getProducts();
+        }else{
+            listProduct = productService.searchProduct(q);
+        }
+        model.addAttribute("products", listProduct);
+        return "Layout/Product/search";
     }
 
 }
