@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <table>
+        <tr th:each="cate : ${categories}">
+            <td th:text="${cateStat.index+1}"></td>
+            <td th:text="${cate.cate_id}"></td>
+            <td th:text="${cate.name}"></td>
+        </tr>
+    </table>
+</body>
+</html>

@@ -3,6 +3,7 @@ package com.hutech.tests3.Controllers;
 import com.hutech.tests3.Entities.CustomUserDetail;
 import com.hutech.tests3.Entities.User;
 import com.hutech.tests3.RequestEntities.RegisterUser;
+import com.hutech.tests3.Services.MailServices;
 import com.hutech.tests3.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -18,6 +19,8 @@ public class AuthController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private MailServices mailServices;
 
     @GetMapping("/register")
     public String Register(Model model){
@@ -56,7 +59,7 @@ public class AuthController {
             return "redirect:/change_password?error";
         }
     }
-    @GetMapping("forgotpassword")
+    @GetMapping("/forgotpassword")
     public String ForgotPassword(){
         return "Layout/Auth/forgotpassword";
     }
@@ -64,7 +67,9 @@ public class AuthController {
     public String ForgotPassword(@RequestParam("email") String email){
         User user = userService.getUserByEmail(email);
         if(user != null){
-            userService.GenTokenResetPassword(user);
+            String token = userService.GenTokenResetPassword(user);
+            String url = "http://localhost:8080/resetpassword?token="+token;
+            mailServices.SendMail(user.getEmail(),url);
         }
         return "redirect:/forgotpassword";
     }

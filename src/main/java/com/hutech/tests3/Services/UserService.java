@@ -15,6 +15,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 @Service
 public class UserService {
@@ -107,13 +108,21 @@ public class UserService {
     public User getUserByEmail(String email) {
         return userRepository.findByEmail(email);
     }
-    public void GenTokenResetPassword(User user){
+    public String GenTokenResetPassword(User user){
         user.setTokenResetPassword(GenToken(45));
         user.setTokenResetPasswordExpired(new Date(System.currentTimeMillis()+1000*60*10));
         userRepository.save(user);
+        return user.getTokenResetPassword();
     }
     public String GenToken(int Length){
-        return "1111";
+        String source = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghiklmnopqrstuvwxyz0123456789";
+        StringBuilder result= new StringBuilder();
+        Random random = new Random();
+        for (int i = 0; i < Length; i++) {
+            int index = random.nextInt(source.length());
+            result.append(source.charAt(index));
+        }
+        return result.toString();
     }
     public User getUserByToken(String token){
         return userRepository.findByToken(token);

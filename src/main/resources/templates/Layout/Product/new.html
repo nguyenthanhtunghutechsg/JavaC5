@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form th:action="'/products/new'" method="post" th:object="${product}">
+        <table>
+            <tr>
+               <td>name</td>
+                <td>
+                    <input type="text" name="name" th:field="*{name}">
+                </td>
+            </tr>
+            <tr>
+                <td>description</td>
+                <td>
+                    <input type="text" name="description" th:field="*{description}">
+                </td>
+            </tr>
+            <tr>
+                <td>price</td>
+                <td>
+                    <input type="number" name="price" th:field="*{price}">
+                </td>
+            </tr>
+            <tr>
+                <td>gpu</td>
+                <td>
+                    <input type="text" name="gpu" th:field="*{gpu}">
+                </td>
+            </tr>
+            <tr>
+                <td>cpu</td>
+                <td>
+                    <input type="text" name="cpu" th:field="*{cpu}">
+                </td>
+            </tr>
+            <tr>
+                <td>brand</td>
+                <td>
+                    <input type="text" name="brand" th:field="*{brand}">
+                </td>
+            </tr>
+            <tr>
+                <td>ram</td>
+                <td>
+                    <input type="number" name="ram" th:field="*{ram}">
+                </td>
+            </tr>
+            <tr>
+                <td>disk</td>
+                <td>
+                    <input type="text" name="disk" th:field="*{disk}">
+                </td>
+            </tr>
+            <tr>
+                <td>screen</td>
+                <td>
+                    <input type="number" name="screen" th:field="*{screen}">
+                </td>
+            </tr>
+            <tr>
+                <td>Category</td>
+                <td>
+                    <select name="category" th:field="*{category}">
+                        <option th:each="cate:${categories}"
+                        th:text="${cate.name}" th:value="${cate.cate_id}"
+                        ></option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <input type="submit" value="save">
+    </form>
+</body>
+</html>

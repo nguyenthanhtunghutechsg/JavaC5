@@ -7,11 +7,11 @@
 <body>
     <form th:action="'/menus/new'" th:object="${menu}" method="post">
         <input type="text" name="name" th:field="*{name}">
-        <input type="text" name="URL" th:field="*{url}">
+        <input type="text" name="URL" th:field="*{URL}">
         <select th:field="*{parent}">
             <option value="" text=" "></option>
             <option th:each="menu:${menus}"
-                    th:value="${menu.id_menu}"
+                    th:value="${menu.menu_id}"
                     th:text="${menu.name}"></option>
         </select>
         <input type="submit" value="save">
