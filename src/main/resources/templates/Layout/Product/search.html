@@ -7,7 +7,7 @@
 <body>
 <form action="/products/search" method="get">
     <div>
-        <input type="text" name="q">
+        <input type="text" name="q" th:value="${q}">
         <input type="submit" vale="search">
     </div>
 </form>

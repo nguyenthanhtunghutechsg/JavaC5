@@ -48,7 +48,31 @@ public class ProductController {
             listProduct = productService.searchProduct(q);
         }
         model.addAttribute("products", listProduct);
+        model.addAttribute("q", q);
         return "Layout/Product/search";
+    }
+    @GetMapping("/filter")
+    public String Filter(
+            @RequestParam(name = "maxPrice",required = false) Integer maxPriceInput,
+            @RequestParam(name = "minPrice",required = false) Integer minPriceInput,
+            @RequestParam(name = "cpu",required = false) List<String> cpus,
+            @RequestParam(name = "gpu",required = false) List<String> gpus,
+            @RequestParam(name = "brand",required = false) List<String> brands
+            ,Model model){
+        int maxPrice = productService.getMaxPrice();
+        int minPrice = productService.getMinPrice();
+        List<String> listCPU = productService.getCPU();
+        List<String> listGPU = productService.getGPU();
+        List<String> listBrand = productService.getBrand();
+        model.addAttribute("maxPrice", maxPrice);
+        model.addAttribute("minPrice", minPrice);
+        model.addAttribute("CPUs", listCPU);
+        model.addAttribute("GPUs", listGPU);
+        model.addAttribute("Brands", listBrand);
+        model.addAttribute("products", productService.getByFilter(
+                maxPriceInput,minPriceInput,cpus,gpus,brands
+        ));
+        return "Layout/Product/filter";
     }
 
 }

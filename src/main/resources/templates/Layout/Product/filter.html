@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="products/filter" method="get">
+    <div>
+        <input name="maxPrice" th:value="${maxPrice}">
+        <input name="minPrice" th:value="${minPrice}">
+    </div>
+    <div>
+        <input type="checkbox" th:each="cpu :${CPUs}" th:value="${cpu}" th:text="${cpu}" name="cpu">
+    </div>
+    <div>
+        <input type="checkbox" th:each="gpu :${GPUs}" th:value="${gpu}" th:text="${gpu}" name="gpu">
+    </div>
+    <div>
+        <input type="checkbox" th:each="brand :${Brands}" th:value="${brand}" th:text="${brand}" name="brand">
+    </div>
+    <input type="submit" value="search">
+</form>
+<div>
+    <table>
+        <thead>
+        <td>ID</td>
+        <td>name</td>
+        <td>description</td>
+        <td>price</td>
+        <td>gpu</td>
+        <td>cpu</td>
+        <td>ram</td>
+        <td>disk</td>
+        <td>brand</td>
+        <td>screen</td>
+        <td>category</td>
+        </thead>
+        <tr th:each="product:${products}">
+            <td th:text="${product.product_id}"></td>
+            <td th:text="${product.name}"></td>
+            <td th:text="${product.description}"></td>
+            <td th:text="${product.price}"></td>
+            <td th:text="${product.gpu}"></td>
+            <td th:text="${product.cpu}"></td>
+            <td th:text="${product.ram}"></td>
+            <td th:text="${product.disk}"></td>
+            <td th:text="${product.brand}"></td>
+            <td th:text="${product.screen}"></td>
+            <td th:text="${product.category.name}"></td>
+        </tr>
+    </table>
+</div>
+
+
+</body>
+</html>
